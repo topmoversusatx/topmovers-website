@@ -1,0 +1,40 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { useQuoteModal } from "@/context/QuoteModalContext"
+
+export default function TrustCTA() {
+  const { openModal } = useQuoteModal()
+
+  return (
+    <div className="text-center space-y-8">
+
+      <h3 className="text-4xl md:text-5xl font-semibold">
+        Move With Confidence.
+      </h3>
+
+      <p className="text-neutral-400">
+        Fast quotes. Transparent pricing. Zero surprises.
+      </p>
+
+      <motion.button
+        onClick={openModal}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.97 }}
+        className="
+          bg-[#facc15] text-black font-semibold
+          px-10 py-4 rounded-2xl
+          border border-[#facc15]
+          transition-all duration-300 ease-out
+          hover:bg-yellow-400
+          hover:shadow-[0_0_30px_rgba(250,204,21,0.4)]
+          hover:-translate-y-1
+          active:scale-[0.98]
+        "
+      >
+        Get Your Free Quote
+      </motion.button>
+
+    </div>
+  )
+}

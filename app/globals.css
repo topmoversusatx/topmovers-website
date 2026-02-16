@@ -1,26 +1,106 @@
-@import "tailwindcss";
+/*************************
+top-movers/app/global.css
+@Serendipity Digital
+Premium Dark System
+**************************/
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* =========================
+   THEME TOKENS
+========================= */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* =========================
+   PREMIUM DARK ROOT
+========================= */
+
+:root {
+  --radius: 0.75rem;
+
+  /* Background */
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+
+  /* Cards */
+  --card: #111111;
+  --card-foreground: #f5f5f5;
+
+  /* Popovers */
+  --popover: #111111;
+  --popover-foreground: #f5f5f5;
+
+  /* Brand Yellow */
+  --primary: #ffd21e;
+  --primary-foreground: #0a0a0a;
+
+  /* Secondary */
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f5f5f5;
+
+  /* Accent */
+  --accent: #1f1f1f;
+  --accent-foreground: #ffffff;
+
+  /* Muted */
+  --muted: #1a1a1a;
+  --muted-foreground: #a1a1aa;
+
+  /* UI */
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #ffd21e;
+
+  /* Charts */
+  --chart-1: #ffd21e;
+  --chart-2: #888888;
+  --chart-3: #444444;
+  --chart-4: #222222;
+  --chart-5: #ffffff;
+}
+
+/* =========================
+   BASE LAYER
+========================= */
+
+@layer base {
+  * {
+    @apply border-border;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
 }
