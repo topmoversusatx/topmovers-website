@@ -25,6 +25,7 @@ type ContactModalProps = {
 
 export default function ContactModal({ open, onClose }: ContactModalProps) {
   const [step, setStep] = useState<1 | 2 | 3>(1)
+  const [loading, setLoading] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
 
   const [s1, setS1] = useState<Step1>({
@@ -57,6 +58,7 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
     setStep(1)
     setS1({ fullName: "", phone: "", from: "", to: "" })
     setS2({ email: "", date: "", details: "" })
+    setLoading(false)
   }
 
   const close = () => {
@@ -64,11 +66,33 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
     onClose()
   }
 
-  const submit = () => setStep(3)
+  const submit = async () => {
+    try {
+      setLoading(true)
 
-  /* =========================
-     SPOTLIGHT EFFECT
-  ========================== */
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...s1,
+          ...s2,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to send request")
+      }
+
+      setStep(3)
+    } catch (error) {
+      console.error("Contact form error:", error)
+      alert("Something went wrong. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!cardRef.current) return
@@ -85,7 +109,6 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
     <AnimatePresence>
       {open && (
         <>
-          {/* BACKDROP */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -94,9 +117,7 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
             onClick={close}
           />
 
-          {/* CENTER WRAPPER */}
           <div className="fixed inset-0 z-[70] flex items-center justify-center px-4">
-            {/* HALO */}
             <div className="absolute w-[900px] h-[900px] bg-white/5 rounded-full blur-[180px]" />
 
             <motion.div
@@ -107,10 +128,8 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
               className="relative w-full max-w-2xl h-[580px]"
             >
               <div className="relative flex flex-col h-full rounded-[32px] overflow-hidden">
-                {/* OUTER GLOW */}
                 <div className="absolute -inset-[1px] rounded-[32px] bg-gradient-to-r from-white/10 via-white/5 to-white/10 blur-xl opacity-40" />
 
-                {/* MAIN CARD */}
                 <div
                   ref={cardRef}
                   onMouseMove={handleMouseMove}
@@ -189,46 +208,17 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                           </p>
 
                           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <Input
-                              label="Full Name"
-                              value={s1.fullName}
-                              onChange={(v) =>
-                                setS1((p) => ({ ...p, fullName: v }))
-                              }
-                            />
-
-                            <Input
-                              label="Phone Number"
-                              value={s1.phone}
-                              onChange={(v) =>
-                                setS1((p) => ({ ...p, phone: v }))
-                              }
-                            />
-
-                            <Input
-                              label="Moving From"
-                              value={s1.from}
-                              onChange={(v) =>
-                                setS1((p) => ({ ...p, from: v }))
-                              }
-                            />
-
-                            <Input
-                              label="Moving To"
-                              value={s1.to}
-                              onChange={(v) =>
-                                setS1((p) => ({ ...p, to: v }))
-                              }
-                            />
+                            <Input label="Full Name" value={s1.fullName} onChange={(v) => setS1(p => ({ ...p, fullName: v }))} />
+                            <Input label="Phone Number" value={s1.phone} onChange={(v) => setS1(p => ({ ...p, phone: v }))} />
+                            <Input label="Moving From" value={s1.from} onChange={(v) => setS1(p => ({ ...p, from: v }))} />
+                            <Input label="Moving To" value={s1.to} onChange={(v) => setS1(p => ({ ...p, to: v }))} />
                           </div>
 
                           <div className="mt-12 flex justify-end">
                             <button
                               disabled={!canContinue1}
                               onClick={() => setStep(2)}
-                              className="rounded-full bg-white text-black px-8 py-3 font-semibold
-                                         hover:scale-[1.02] active:scale-[0.98]
-                                         transition disabled:opacity-30"
+                              className="rounded-full bg-white text-black px-8 py-3 font-semibold transition disabled:opacity-30"
                             >
                               Continue
                             </button>
@@ -247,55 +237,26 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                             Almost there.
                           </h3>
 
-                          <p className="mt-3 text-white/50 text-sm">
-                            Help us prepare the perfect move for you.
-                          </p>
-
                           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <Input
-                              label="Email Address"
-                              value={s2.email}
-                              onChange={(v) =>
-                                setS2((p) => ({ ...p, email: v }))
-                              }
-                            />
-
-                            <Input
-                              label="Preferred Moving Date"
-                              type="date"
-                              value={s2.date}
-                              onChange={(v) =>
-                                setS2((p) => ({ ...p, date: v }))
-                              }
-                            />
+                            <Input label="Email Address" value={s2.email} onChange={(v) => setS2(p => ({ ...p, email: v }))} />
+                            <Input label="Preferred Moving Date" type="date" value={s2.date} onChange={(v) => setS2(p => ({ ...p, date: v }))} />
                           </div>
 
                           <div className="mt-8">
-                            <Textarea
-                              label="Anything we should know?"
-                              value={s2.details}
-                              onChange={(v) =>
-                                setS2((p) => ({ ...p, details: v }))
-                              }
-                            />
+                            <Textarea label="Anything we should know?" value={s2.details} onChange={(v) => setS2(p => ({ ...p, details: v }))} />
                           </div>
 
                           <div className="mt-12 flex justify-between items-center">
-                            <button
-                              onClick={() => setStep(1)}
-                              className="text-white/60 hover:text-white transition"
-                            >
+                            <button onClick={() => setStep(1)} className="text-white/60 hover:text-white transition">
                               Back
                             </button>
 
                             <button
-                              disabled={!canContinue2}
+                              disabled={!canContinue2 || loading}
                               onClick={submit}
-                              className="rounded-full bg-white text-black px-8 py-3 font-semibold
-                                         hover:scale-[1.02] active:scale-[0.98]
-                                         transition disabled:opacity-30"
+                              className="rounded-full bg-white text-black px-8 py-3 font-semibold transition disabled:opacity-30"
                             >
-                              Secure My Move
+                              {loading ? "Sending..." : "Secure My Move"}
                             </button>
                           </div>
                         </motion.div>
@@ -316,9 +277,7 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
 
                           <button
                             onClick={close}
-                            className="mt-12 rounded-full bg-white text-black px-8 py-3 font-semibold
-                                       hover:scale-[1.02] active:scale-[0.98]
-                                       transition"
+                            className="mt-12 rounded-full bg-white text-black px-8 py-3 font-semibold transition"
                           >
                             Done
                           </button>
@@ -336,21 +295,8 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
   )
 }
 
-/* =========================
-   INPUT COMPONENT
-========================= */
-
-function Input({
-  label,
-  value,
-  onChange,
-  type = "text",
-}: {
-  label: string
-  value: string
-  onChange: (v: string) => void
-  type?: string
-}) {
+/* INPUT */
+function Input({ label, value, onChange, type = "text" }: any) {
   return (
     <label className="block">
       <span className="block text-xs uppercase tracking-wider text-white/40 mb-3">
@@ -360,27 +306,14 @@ function Input({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-2xl bg-white/5 border border-white/10 px-5 py-4 text-white
-                   outline-none transition
-                   focus:border-white/30 focus:bg-white/10"
+        className="w-full rounded-2xl bg-white/5 border border-white/10 px-5 py-4 text-white outline-none transition focus:border-white/30 focus:bg-white/10"
       />
     </label>
   )
 }
 
-/* =========================
-   TEXTAREA COMPONENT
-========================= */
-
-function Textarea({
-  label,
-  value,
-  onChange,
-}: {
-  label: string
-  value: string
-  onChange: (v: string) => void
-}) {
+/* TEXTAREA */
+function Textarea({ label, value, onChange }: any) {
   return (
     <label className="block">
       <span className="block text-xs uppercase tracking-wider text-white/40 mb-3">
@@ -390,9 +323,7 @@ function Textarea({
         rows={4}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-2xl bg-white/5 border border-white/10 px-5 py-4 text-white
-                   outline-none resize-none transition
-                   focus:border-white/30 focus:bg-white/10"
+        className="w-full rounded-2xl bg-white/5 border border-white/10 px-5 py-4 text-white outline-none resize-none transition focus:border-white/30 focus:bg-white/10"
       />
     </label>
   )
