@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: "Top Movers <info@topmoversusatx.com>",
       to: ["info@topmoversusatx.com"],
-      subject: "🚚 New Move Request – Top Movers",
+      subject: `🚚 New Move Request – ${fullName}`,
       html: `
         <h2>New Moving Request</h2>
         <p><strong>Name:</strong> ${fullName}</p>
