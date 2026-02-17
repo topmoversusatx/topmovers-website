@@ -1,3 +1,9 @@
+/*************************
+top-movers/components/LongDistanceSection.tsx
+@Serendipity Digital
+**************************/
+
+
 "use client"
 
 import { motion } from "framer-motion"

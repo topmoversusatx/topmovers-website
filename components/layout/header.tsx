@@ -1,3 +1,8 @@
+/*************************
+top-movers/components/layout/header.tsx
+@Serendipity Digital
+**************************/
+
 "use client"
 
 import { useEffect, useState } from "react"
@@ -34,17 +39,6 @@ export default function Header() {
     { label: "Reviews", href: "#reviews" },
     { label: "Contact", href: "#contact" },
   ]
-
-  // 🔥 25M Scroll Control
-  const handleNavClick = (id: string) => {
-    const element = document.querySelector(id)
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
-    }
-  }
 
   return (
     <header
@@ -130,25 +124,24 @@ export default function Header() {
 
                 {/* Logo centered */}
                 <div className="mb-16">
-                  <Image
-                    src="/logo.png"
-                    alt="Top Movers"
-                    width={200}
-                    height={70}
-                    className="mx-auto"
-                  />
+                  <Link href="#home">
+                    <Image
+                      src="/logo.png"
+                      alt="Top Movers"
+                      width={200}
+                      height={70}
+                      className="mx-auto"
+                    />
+                  </Link>
                 </div>
 
                 {/* Navigation */}
                 <div className="flex flex-col items-center gap-10 text-2xl font-semibold tracking-wide text-center">
 
-                  {menuItems.map((item, index) => (
+                  {menuItems.map((item) => (
                     <SheetClose asChild key={item.href}>
-                      <motion.button
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.06 }}
-                        onClick={() => handleNavClick(item.href)}
+                      <Link
+                        href={item.href}
                         className="
                           hover:text-primary
                           transition-colors
@@ -156,7 +149,7 @@ export default function Header() {
                         "
                       >
                         {item.label}
-                      </motion.button>
+                      </Link>
                     </SheetClose>
                   ))}
 
@@ -166,9 +159,6 @@ export default function Header() {
                   {/* Premium CTA */}
                   <SheetClose asChild>
                     <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.35 }}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
                       className="w-full max-w-xs"
