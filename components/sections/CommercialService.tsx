@@ -3,12 +3,37 @@
 import { motion } from "framer-motion"
 import { useQuoteModal } from "@/context/QuoteModalContext"
 import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
 
 export default function CommercialService() {
   const { openModal } = useQuoteModal()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkScreen = () => setIsMobile(window.innerWidth < 768)
+    checkScreen()
+    window.addEventListener("resize", checkScreen)
+    return () => window.removeEventListener("resize", checkScreen)
+  }, [])
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden">
+    <section className="relative w-full min-h-[100vh] overflow-hidden">
+
+      {/* ============================= */}
+      {/* CURVED TRANSITION (TOP) */}
+      {/* ============================= */}
+      <div className="absolute top-[-1px] left-0 w-full overflow-hidden leading-none z-20">
+        <svg
+          viewBox="0 0 1440 120"
+          className="w-full h-[45px] rotate-180 block"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z"
+            fill="#0a0a0a"
+          />
+        </svg>
+      </div>
 
       {/* Background Image */}
       <motion.div
@@ -18,35 +43,38 @@ export default function CommercialService() {
         className="absolute inset-0"
       >
         <img
-          src="/commercial-moving-bg.jpg"
+          src={isMobile ? "/commercial-moving-mobile.jpg" : "/commercial-moving-bg.jpg"}
           alt="Commercial and office relocation services in Austin"
-          className="w-full h-full object-cover"
+          className="
+            w-full h-full object-cover
+            object-center
+            md:object-[center_30%]
+          "
         />
 
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(315deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.75) 35%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0) 85%)"
+              "linear-gradient(315deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.75) 35%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0) 85%)",
           }}
         />
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 flex items-center justify-end min-h-screen">
-        <div className="text-white max-w-3xl pr-12 md:pr-24 text-right">
+      <div className="relative z-10 flex items-center justify-end min-h-[100vh]">
+        <div className="text-white max-w-3xl pr-6 md:pr-24 text-right">
 
-          <h2 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+          <h2 className="text-4xl md:text-7xl font-bold leading-tight mb-6">
             Seamless Commercial & Office Relocation
           </h2>
 
-          <p className="text-xl md:text-2xl text-neutral-200 mb-10">
+          <p className="text-lg md:text-2xl text-neutral-200 mb-10">
             We relocate offices, corporate spaces, and commercial facilities
             with precision and minimal disruption — so your business keeps moving
             forward without missing a beat.
           </p>
 
-          {/* 🔥 Premium Primary CTA */}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             <Button
               size="lg"
@@ -66,17 +94,18 @@ export default function CommercialService() {
         </div>
       </div>
 
+      {/* ============================= */}
       {/* CURVED TRANSITION (BOTTOM) */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+      {/* ============================= */}
+      <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-none z-20">
         <svg
           viewBox="0 0 1440 120"
-          className="w-full h-[25px]"
+          className="w-full h-[45px] block"
           preserveAspectRatio="none"
         >
           <path
             d="M0,80 
-               C240,120 360,40 600,80 
-               C840,120 1080,40 1440,80 
+               C360,20 1080,140 1440,80 
                L1440,120 L0,120 Z"
             fill="#0a0a0a"
           />
