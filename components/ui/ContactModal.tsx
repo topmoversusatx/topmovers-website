@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useState, ReactNode } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { X, CheckCircle2 } from "lucide-react"
 import Image from "next/image"
@@ -88,7 +88,6 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
     <AnimatePresence>
       {open && (
         <>
-          {/* OVERLAY */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -105,20 +104,13 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
               transition={{ duration: 0.35, ease: "easeOut" }}
               className="relative w-full max-w-2xl h-[580px]"
             >
-              <div
-                className="relative flex flex-col h-full rounded-[36px]
+              <div className="relative flex flex-col h-full rounded-[36px]
                            border border-white/15
                            shadow-[0_60px_180px_rgba(0,0,0,0.95)]
                            backdrop-blur-2xl
                            overflow-hidden
                            bg-gradient-to-b from-black via-neutral-900 to-black"
               >
-                {/* Cinematic glow */}
-                <div className="absolute inset-0 pointer-events-none">
-                  <div className="absolute left-1/2 top-[35%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.04] blur-3xl" />
-                </div>
-
-                {/* HEADER */}
                 <div className="relative flex items-center justify-between px-8 py-6">
                   <Image
                     src="/logo.png"
@@ -135,48 +127,16 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                   </button>
                 </div>
 
-                {/* PROGRESS BAR */}
-                <div className="px-8">
-                  <div className="h-[2px] w-full bg-white/10 rounded-full overflow-hidden">
-                    <motion.div
-                      animate={{
-                        width:
-                          step === 1
-                            ? "33%"
-                            : step === 2
-                            ? "66%"
-                            : "100%",
-                      }}
-                      transition={{ duration: 0.4 }}
-                      className="h-full bg-[#ffd21e]"
-                    />
-                  </div>
-                </div>
-
-                {/* CONTENT */}
                 <div className="flex-1 px-10 py-6 text-white relative">
                   <AnimatePresence mode="wait">
 
-                    {/* STEP 1 */}
                     {step === 1 && (
-                      <motion.div
-                        key="step1"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                      >
-                        <h3 className="text-4xl font-semibold tracking-tight">
-                          Tell Us About Your Move.
-                        </h3>
-                        <p className="mt-3 text-white/40 text-sm">
-                          Licensed. Insured. Austin-based.
-                        </p>
-
+                      <motion.div key="step1" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <Input label="Full Name" value={s1.fullName} onChange={(v)=>setS1(p=>({...p,fullName:v}))}/>
-                          <Input label="Phone Number" value={s1.phone} onChange={(v)=>setS1(p=>({...p,phone:v}))}/>
-                          <Input label="Moving From" value={s1.from} onChange={(v)=>setS1(p=>({...p,from:v}))}/>
-                          <Input label="Moving To" value={s1.to} onChange={(v)=>setS1(p=>({...p,to:v}))}/>
+                          <Input label="Full Name" value={s1.fullName} onChange={(v: string)=>setS1(p=>({...p,fullName:v}))}/>
+                          <Input label="Phone Number" value={s1.phone} onChange={(v: string)=>setS1(p=>({...p,phone:v}))}/>
+                          <Input label="Moving From" value={s1.from} onChange={(v: string)=>setS1(p=>({...p,from:v}))}/>
+                          <Input label="Moving To" value={s1.to} onChange={(v: string)=>setS1(p=>({...p,to:v}))}/>
                         </div>
 
                         <div className="mt-10 flex justify-end">
@@ -187,25 +147,15 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                       </motion.div>
                     )}
 
-                    {/* STEP 2 */}
                     {step === 2 && (
-                      <motion.div
-                        key="step2"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                      >
-                        <h3 className="text-4xl font-semibold tracking-tight">
-                          Lock In The Details.
-                        </h3>
-
+                      <motion.div key="step2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <Input label="Email Address" value={s2.email} onChange={(v)=>setS2(p=>({...p,email:v}))}/>
-                          <Input type="date" label="Preferred Moving Date" value={s2.date} onChange={(v)=>setS2(p=>({...p,date:v}))}/>
+                          <Input label="Email Address" value={s2.email} onChange={(v: string)=>setS2(p=>({...p,email:v}))}/>
+                          <Input type="date" label="Preferred Moving Date" value={s2.date} onChange={(v: string)=>setS2(p=>({...p,date:v}))}/>
                         </div>
 
                         <div className="mt-6">
-                          <Textarea label="Anything we should know?" value={s2.details} onChange={(v)=>setS2(p=>({...p,details:v}))}/>
+                          <Textarea label="Anything we should know?" value={s2.details} onChange={(v: string)=>setS2(p=>({...p,details:v}))}/>
                         </div>
 
                         <div className="mt-10 flex justify-between items-center">
@@ -223,22 +173,14 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                       </motion.div>
                     )}
 
-                    {/* STEP 3 */}
                     {step === 3 && (
-                      <motion.div
-                        key="step3"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                      <motion.div key="step3" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                         className="flex flex-col items-center justify-center h-full text-center"
                       >
                         <CheckCircle2 className="h-16 w-16 text-[#ffd21e]" />
                         <h3 className="mt-6 text-4xl font-semibold">
                           You're Scheduled.
                         </h3>
-                        <p className="mt-3 text-white/40 text-sm">
-                          A moving specialist will contact you shortly.
-                        </p>
-
                         <BrandButton onClick={close} className="mt-10">
                           Done
                         </BrandButton>
@@ -256,9 +198,16 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
   )
 }
 
-/* BRAND BUTTON */
+/* ---------- BUTTON ---------- */
 
-function BrandButton({ children, disabled, onClick, className="" }: any) {
+type BrandButtonProps = {
+  children: ReactNode
+  disabled?: boolean
+  onClick?: () => void
+  className?: string
+}
+
+function BrandButton({ children, disabled, onClick, className="" }: BrandButtonProps) {
   return (
     <motion.button
       whileHover={{ scale: 1.02 }}
@@ -278,9 +227,16 @@ function BrandButton({ children, disabled, onClick, className="" }: any) {
   )
 }
 
-/* INPUT */
+/* ---------- INPUT ---------- */
 
-function Input({ label, value, onChange, type="text" }: any) {
+type InputProps = {
+  label: string
+  value: string
+  onChange: (value: string) => void
+  type?: string
+}
+
+function Input({ label, value, onChange, type="text" }: InputProps) {
   return (
     <label className="block">
       <span className="block text-xs uppercase tracking-wider text-white/40 mb-3">
@@ -289,7 +245,7 @@ function Input({ label, value, onChange, type="text" }: any) {
       <input
         type={type}
         value={value}
-        onChange={(e)=>onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value)}
         className="w-full rounded-2xl bg-black/40 border border-white/15
                    px-5 py-4 text-white outline-none transition
                    focus:border-[#ffd21e] focus:ring-1 focus:ring-[#ffd21e]/40"
@@ -298,9 +254,15 @@ function Input({ label, value, onChange, type="text" }: any) {
   )
 }
 
-/* TEXTAREA */
+/* ---------- TEXTAREA ---------- */
 
-function Textarea({ label, value, onChange }: any) {
+type TextareaProps = {
+  label: string
+  value: string
+  onChange: (value: string) => void
+}
+
+function Textarea({ label, value, onChange }: TextareaProps) {
   return (
     <label className="block">
       <span className="block text-xs uppercase tracking-wider text-white/40 mb-3">
@@ -309,7 +271,7 @@ function Textarea({ label, value, onChange }: any) {
       <textarea
         rows={4}
         value={value}
-        onChange={(e)=>onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=>onChange(e.target.value)}
         className="w-full rounded-2xl bg-black/40 border border-white/15
                    px-5 py-4 text-white outline-none resize-none transition
                    focus:border-[#ffd21e] focus:ring-1 focus:ring-[#ffd21e]/40"
