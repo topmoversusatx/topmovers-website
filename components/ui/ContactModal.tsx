@@ -58,7 +58,6 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
     setStep(1)
     setS1({ fullName: "", phone: "", from: "", to: "" })
     setS2({ email: "", date: "", details: "" })
-    setLoading(false)
   }
 
   const close = () => {
@@ -70,7 +69,7 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
     try {
       setLoading(true)
 
-      const response = await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,26 +80,21 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
         }),
       })
 
-      if (!response.ok) {
-        throw new Error("Failed to send request")
-      }
+      if (!res.ok) throw new Error("Failed")
 
       setStep(3)
-    } catch (error) {
-      console.error("Contact form error:", error)
+    } catch (err) {
       alert("Something went wrong. Please try again.")
     } finally {
       setLoading(false)
     }
   }
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return
-
     const rect = cardRef.current.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
-
     cardRef.current.style.setProperty("--x", `${x}px`)
     cardRef.current.style.setProperty("--y", `${y}px`)
   }
@@ -118,173 +112,193 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
           />
 
           <div className="fixed inset-0 z-[70] flex items-center justify-center px-4">
-            <div className="absolute w-[900px] h-[900px] bg-white/5 rounded-full blur-[180px]" />
-
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.35 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
               className="relative w-full max-w-2xl h-[580px]"
             >
-              <div className="relative flex flex-col h-full rounded-[32px] overflow-hidden">
-                <div className="absolute -inset-[1px] rounded-[32px] bg-gradient-to-r from-white/10 via-white/5 to-white/10 blur-xl opacity-40" />
+              <div
+                ref={cardRef}
+                onMouseMove={handleMouseMove}
+                className="relative flex flex-col h-full rounded-[32px]
+                           border border-white/10
+                           shadow-[0_40px_120px_rgba(0,0,0,0.9)]
+                           backdrop-blur-xl
+                           overflow-hidden bg-neutral-900"
+              >
+                <div className="flex items-center justify-between px-8 py-6">
+                  <Image
+                    src="/logo.png"
+                    alt="Logo"
+                    width={120}
+                    height={40}
+                    priority
+                  />
+                  <button
+                    onClick={close}
+                    className="rounded-full p-2 hover:bg-white/10 transition"
+                  >
+                    <X className="h-5 w-5 text-white/70" />
+                  </button>
+                </div>
 
-                <div
-                  ref={cardRef}
-                  onMouseMove={handleMouseMove}
-                  className="relative flex flex-col h-full rounded-[32px]
-                             border border-white/10
-                             shadow-[0_40px_120px_rgba(0,0,0,0.9)]
-                             backdrop-blur-xl
-                             overflow-hidden"
-                  style={{
-                    background: `
-                      radial-gradient(
-                        600px circle at var(--x, 50%) var(--y, 50%),
-                        rgba(0,120,255,0.15),
-                        transparent 40%
-                      ),
-                      linear-gradient(
-                        to bottom,
-                        #171717,
-                        #0a0a0a
-                      )
-                    `,
-                  }}
-                >
-                  {/* HEADER */}
-                  <div className="flex items-center justify-between px-8 py-6">
-                    <Image
-                      src="/logo.png"
-                      alt="Logo"
-                      width={120}
-                      height={40}
-                      priority
+                <div className="px-8">
+                  <div className="h-[3px] w-full bg-white/10 rounded-full overflow-hidden">
+                    <motion.div
+                      animate={{
+                        width:
+                          step === 1
+                            ? "33%"
+                            : step === 2
+                            ? "66%"
+                            : "100%",
+                      }}
+                      transition={{ duration: 0.4 }}
+                      className="h-full bg-white rounded-full"
                     />
-
-                    <button
-                      onClick={close}
-                      className="rounded-full p-2 hover:bg-white/10 transition"
-                    >
-                      <X className="h-5 w-5 text-white/70" />
-                    </button>
                   </div>
+                </div>
 
-                  {/* PROGRESS BAR */}
-                  <div className="px-8">
-                    <div className="h-[3px] w-full bg-white/10 rounded-full overflow-hidden">
+                <div className="flex-1 px-10 py-10 overflow-y-auto text-white">
+                  <AnimatePresence mode="wait">
+                    {step === 1 && (
                       <motion.div
-                        animate={{
-                          width:
-                            step === 1
-                              ? "33%"
-                              : step === 2
-                              ? "66%"
-                              : "100%",
-                        }}
-                        transition={{ duration: 0.4 }}
-                        className="h-full bg-white rounded-full"
-                      />
-                    </div>
-                  </div>
+                        key="step1"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                      >
+                        <h3 className="text-3xl font-semibold">
+                          Let’s plan your move.
+                        </h3>
 
-                  {/* BODY */}
-                  <div className="flex-1 px-10 py-10 overflow-y-auto">
-                    <AnimatePresence mode="wait">
-                      {step === 1 && (
-                        <motion.div
-                          key="step1"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -20 }}
-                        >
-                          <h3 className="text-3xl font-semibold">
-                            Let’s plan your move.
-                          </h3>
+                        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <Input
+                            label="Full Name"
+                            value={s1.fullName}
+                            onChange={(value: string) =>
+                              setS1((p) => ({ ...p, fullName: value }))
+                            }
+                          />
 
-                          <p className="mt-3 text-white/50 text-sm">
-                            Just a few details to get started — it takes less than a minute.
-                          </p>
+                          <Input
+                            label="Phone Number"
+                            value={s1.phone}
+                            onChange={(value: string) =>
+                              setS1((p) => ({ ...p, phone: value }))
+                            }
+                          />
 
-                          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <Input label="Full Name" value={s1.fullName} onChange={(v) => setS1(p => ({ ...p, fullName: v }))} />
-                            <Input label="Phone Number" value={s1.phone} onChange={(v) => setS1(p => ({ ...p, phone: v }))} />
-                            <Input label="Moving From" value={s1.from} onChange={(v) => setS1(p => ({ ...p, from: v }))} />
-                            <Input label="Moving To" value={s1.to} onChange={(v) => setS1(p => ({ ...p, to: v }))} />
-                          </div>
+                          <Input
+                            label="Moving From"
+                            value={s1.from}
+                            onChange={(value: string) =>
+                              setS1((p) => ({ ...p, from: value }))
+                            }
+                          />
 
-                          <div className="mt-12 flex justify-end">
-                            <button
-                              disabled={!canContinue1}
-                              onClick={() => setStep(2)}
-                              className="rounded-full bg-white text-black px-8 py-3 font-semibold transition disabled:opacity-30"
-                            >
-                              Continue
-                            </button>
-                          </div>
-                        </motion.div>
-                      )}
+                          <Input
+                            label="Moving To"
+                            value={s1.to}
+                            onChange={(value: string) =>
+                              setS1((p) => ({ ...p, to: value }))
+                            }
+                          />
+                        </div>
 
-                      {step === 2 && (
-                        <motion.div
-                          key="step2"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -20 }}
-                        >
-                          <h3 className="text-3xl font-semibold">
-                            Almost there.
-                          </h3>
+                        <div className="mt-12 flex justify-end">
+                          <button
+                            disabled={!canContinue1}
+                            onClick={() => setStep(2)}
+                            className="rounded-full bg-white text-black px-8 py-3 font-semibold disabled:opacity-30"
+                          >
+                            Continue
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
 
-                          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <Input label="Email Address" value={s2.email} onChange={(v) => setS2(p => ({ ...p, email: v }))} />
-                            <Input label="Preferred Moving Date" type="date" value={s2.date} onChange={(v) => setS2(p => ({ ...p, date: v }))} />
-                          </div>
+                    {step === 2 && (
+                      <motion.div
+                        key="step2"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                      >
+                        <h3 className="text-3xl font-semibold">
+                          Almost there.
+                        </h3>
 
-                          <div className="mt-8">
-                            <Textarea label="Anything we should know?" value={s2.details} onChange={(v) => setS2(p => ({ ...p, details: v }))} />
-                          </div>
+                        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <Input
+                            label="Email Address"
+                            value={s2.email}
+                            onChange={(value: string) =>
+                              setS2((p) => ({ ...p, email: value }))
+                            }
+                          />
 
-                          <div className="mt-12 flex justify-between items-center">
-                            <button onClick={() => setStep(1)} className="text-white/60 hover:text-white transition">
-                              Back
-                            </button>
+                          <Input
+                            label="Preferred Moving Date"
+                            type="date"
+                            value={s2.date}
+                            onChange={(value: string) =>
+                              setS2((p) => ({ ...p, date: value }))
+                            }
+                          />
+                        </div>
 
-                            <button
-                              disabled={!canContinue2 || loading}
-                              onClick={submit}
-                              className="rounded-full bg-white text-black px-8 py-3 font-semibold transition disabled:opacity-30"
-                            >
-                              {loading ? "Sending..." : "Secure My Move"}
-                            </button>
-                          </div>
-                        </motion.div>
-                      )}
+                        <div className="mt-8">
+                          <Textarea
+                            label="Anything we should know?"
+                            value={s2.details}
+                            onChange={(value: string) =>
+                              setS2((p) => ({ ...p, details: value }))
+                            }
+                          />
+                        </div>
 
-                      {step === 3 && (
-                        <motion.div
-                          key="step3"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className="flex flex-col items-center justify-center h-full text-center"
-                        >
-                          <CheckCircle2 className="h-14 w-14 text-white" />
-
-                          <h3 className="mt-6 text-3xl font-semibold">
-                            You’re booked in.
-                          </h3>
+                        <div className="mt-12 flex justify-between items-center">
+                          <button
+                            onClick={() => setStep(1)}
+                            className="text-white/60 hover:text-white transition"
+                          >
+                            Back
+                          </button>
 
                           <button
-                            onClick={close}
-                            className="mt-12 rounded-full bg-white text-black px-8 py-3 font-semibold transition"
+                            disabled={!canContinue2 || loading}
+                            onClick={submit}
+                            className="rounded-full bg-white text-black px-8 py-3 font-semibold disabled:opacity-30"
                           >
-                            Done
+                            {loading ? "Sending..." : "Secure My Move"}
                           </button>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {step === 3 && (
+                      <motion.div
+                        key="step3"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="flex flex-col items-center justify-center h-full text-center"
+                      >
+                        <CheckCircle2 className="h-14 w-14 text-white" />
+                        <h3 className="mt-6 text-3xl font-semibold">
+                          You’re booked in.
+                        </h3>
+                        <button
+                          onClick={close}
+                          className="mt-12 rounded-full bg-white text-black px-8 py-3 font-semibold"
+                        >
+                          Done
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
             </motion.div>
@@ -296,7 +310,15 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
 }
 
 /* INPUT */
-function Input({ label, value, onChange, type = "text" }: any) {
+
+type InputProps = {
+  label: string
+  value: string
+  onChange: (value: string) => void
+  type?: string
+}
+
+function Input({ label, value, onChange, type = "text" }: InputProps) {
   return (
     <label className="block">
       <span className="block text-xs uppercase tracking-wider text-white/40 mb-3">
@@ -305,7 +327,9 @@ function Input({ label, value, onChange, type = "text" }: any) {
       <input
         type={type}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange(e.target.value)
+        }
         className="w-full rounded-2xl bg-white/5 border border-white/10 px-5 py-4 text-white outline-none transition focus:border-white/30 focus:bg-white/10"
       />
     </label>
@@ -313,7 +337,14 @@ function Input({ label, value, onChange, type = "text" }: any) {
 }
 
 /* TEXTAREA */
-function Textarea({ label, value, onChange }: any) {
+
+type TextareaProps = {
+  label: string
+  value: string
+  onChange: (value: string) => void
+}
+
+function Textarea({ label, value, onChange }: TextareaProps) {
   return (
     <label className="block">
       <span className="block text-xs uppercase tracking-wider text-white/40 mb-3">
@@ -322,7 +353,9 @@ function Textarea({ label, value, onChange }: any) {
       <textarea
         rows={4}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+          onChange(e.target.value)
+        }
         className="w-full rounded-2xl bg-white/5 border border-white/10 px-5 py-4 text-white outline-none resize-none transition focus:border-white/30 focus:bg-white/10"
       />
     </label>
