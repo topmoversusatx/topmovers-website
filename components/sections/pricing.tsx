@@ -46,7 +46,10 @@ export default function Pricing() {
   ]
 
   return (
-    <section className="relative bg-gradient-to-b from-black via-zinc-950 to-black text-white pt-14 pb-16 md:py-28 px-4 md:px-6">
+    <section
+      id="pricing"
+      className="scroll-mt-24 relative bg-gradient-to-b from-black via-zinc-950 to-black text-white pt-14 pb-16 md:py-28 px-4 md:px-6"
+    >
 
       {/* TOP FADE */}
       <div className="absolute top-0 left-0 w-full h-14 md:h-24 bg-gradient-to-b from-transparent to-black pointer-events-none" />

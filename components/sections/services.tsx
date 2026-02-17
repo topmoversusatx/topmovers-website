@@ -5,7 +5,10 @@ import LongDistanceSection from "./LongDistanceSection"
 
 export default function OurServicesSection() {
   return (
-    <section className="text-white">
+    <section
+      id="services"
+      className="scroll-mt-24 text-white"
+    >
 
       {/* ========================= */}
       {/* TOP BLOCK WITH BACKGROUND */}
@@ -66,6 +69,10 @@ export default function OurServicesSection() {
         </div>
 
       </div>
+
+      {/* ========================= */}
+      {/* SERVICES BLOCKS */}
+      {/* ========================= */}
 
       <div className="bg-neutral-950">
         <ResidentialService />

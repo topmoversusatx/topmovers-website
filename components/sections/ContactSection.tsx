@@ -8,7 +8,10 @@ export default function ContactSection() {
   const { openModal } = useQuoteModal()
 
   return (
-    <section className="relative text-white overflow-hidden">
+    <section
+      id="contact"
+      className="scroll-mt-24 relative text-white overflow-hidden"
+    >
 
       {/* ================= VIDEO BACKGROUND ================= */}
       <div className="absolute inset-0 -z-10">

@@ -35,8 +35,9 @@ export default function CoverageAreaSection() {
 
   return (
     <section
+      id="coverage"
       ref={sectionRef}
-      className="relative pt-16 pb-32 md:pt-28 md:pb-40 text-white overflow-hidden"
+      className="scroll-mt-24 relative pt-16 pb-32 md:pt-28 md:pb-40 text-white overflow-hidden"
     >
 
       {/* BACKGROUND */}
@@ -49,7 +50,7 @@ export default function CoverageAreaSection() {
           className="hidden md:block w-full h-full object-cover object-center"
         />
 
-        {/* Mobile Background 9:16 */}
+        {/* Mobile Background */}
         <img
           src="/coverage-area-bg-mobile.jpg"
           alt="Austin skyline mobile"
@@ -83,11 +84,8 @@ export default function CoverageAreaSection() {
           </p>
         </div>
 
-        {/* ===================== */}
-        {/* MOBILE 3 COLUMN GRID */}
-        {/* ===================== */}
+        {/* MOBILE GRID */}
         <div className="grid grid-cols-3 gap-4 md:hidden text-center">
-
           {[{
             title: "Austin Metro",
             data: austinMetro
@@ -98,9 +96,7 @@ export default function CoverageAreaSection() {
             title: "USA",
             data: usaCities
           }].map((section) => (
-
             <div key={section.title}>
-
               <h3 className="text-[10px] tracking-[0.3em] uppercase text-neutral-400 mb-4">
                 {section.title}
               </h3>
@@ -109,29 +105,18 @@ export default function CoverageAreaSection() {
                 {section.data.map((city) => (
                   <div
                     key={city}
-                    className="
-                      text-neutral-300
-                      text-sm
-                      transition-all
-                      duration-300
-                      hover:text-[#ffd21e]
-                    "
+                    className="text-neutral-300 text-sm transition-all duration-300 hover:text-[#ffd21e]"
                   >
                     {city}
                   </div>
                 ))}
               </div>
-
             </div>
           ))}
-
         </div>
 
-        {/* ===================== */}
         {/* MOBILE FLEXIBLE ROUTES */}
-        {/* ===================== */}
         <div className="md:hidden text-center mt-16">
-
           <h3 className="text-2xl font-bold mb-6 leading-tight">
             Flexible Origin & Destination Nationwide
           </h3>
@@ -142,18 +127,12 @@ export default function CoverageAreaSection() {
 
           <p className="text-neutral-300 text-sm leading-relaxed max-w-md mx-auto">
             We provide pickup and delivery services between any cities across Texas 
-            and throughout the United States. Whether it's San Antonio to Dallas, 
-            Miami to Houston, or coast to coast, Top Movers handles full-service 
-            relocations with no geographic limitations.
+            and throughout the United States.
           </p>
-
         </div>
 
-        {/* ===================== */}
         {/* DESKTOP CARDS */}
-        {/* ===================== */}
         <div className="hidden md:grid lg:grid-cols-3 gap-8">
-
           {[{
             title: "Austin Metro Area",
             data: austinMetro
@@ -164,21 +143,10 @@ export default function CoverageAreaSection() {
             title: "Across the United States",
             data: usaCities
           }].map((section) => (
-
             <div
               key={section.title}
-              className="
-                p-10
-                rounded-3xl
-                border border-white/10
-                bg-white/5
-                backdrop-blur-xl
-                shadow-[0_20px_60px_rgba(0,0,0,0.6)]
-                hover:border-[#ffd21e]/40
-                transition-all duration-500
-              "
+              className="p-10 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] hover:border-[#ffd21e]/40 transition-all duration-500"
             >
-
               <h3 className="text-xs tracking-[0.45em] uppercase text-neutral-400 mb-8 text-center">
                 {section.title}
               </h3>
@@ -187,30 +155,18 @@ export default function CoverageAreaSection() {
                 {section.data.map((city) => (
                   <div
                     key={city}
-                    className="
-                      text-neutral-300
-                      text-lg
-                      transition-all
-                      duration-300
-                      hover:text-[#ffd21e]
-                      hover:scale-105
-                    "
+                    className="text-neutral-300 text-lg transition-all duration-300 hover:text-[#ffd21e] hover:scale-105"
                   >
                     {city}
                   </div>
                 ))}
               </div>
-
             </div>
           ))}
-
         </div>
 
-        {/* ===================== */}
         {/* DESKTOP FLEXIBLE ROUTES */}
-        {/* ===================== */}
         <div className="hidden md:block text-center mt-24 md:mt-28">
-
           <h3 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
             Flexible Origin & Destination Nationwide
           </h3>
@@ -221,11 +177,8 @@ export default function CoverageAreaSection() {
 
           <p className="text-neutral-300 text-lg max-w-3xl mx-auto leading-relaxed">
             We provide pickup and delivery services between any cities across Texas 
-            and throughout the United States. Whether it's San Antonio to Dallas, 
-            Miami to Houston, or coast to coast, Top Movers handles full-service 
-            relocations with no geographic limitations.
+            and throughout the United States.
           </p>
-
         </div>
 
       </div>

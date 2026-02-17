@@ -7,7 +7,10 @@ import TrustCTA from "./TrustCTA"
 
 export default function TrustSection() {
   return (
-    <section className="relative text-white overflow-hidden py-16 md:py-32">
+    <section
+      id="reviews"
+      className="scroll-mt-24 relative text-white overflow-hidden py-16 md:py-32"
+    >
 
       {/* ============================= */}
       {/* Background Image */}
@@ -33,7 +36,7 @@ export default function TrustSection() {
           "
         />
 
-        {/* Overlay (lighter on mobile, unchanged on desktop) */}
+        {/* Overlay */}
         <div
           className="
             absolute inset-0 
