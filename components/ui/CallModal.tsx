@@ -87,11 +87,26 @@ export default function CallModal({ open, onClose }: Props) {
               `,
             }}
           >
+
+            {/* CLOSE BUTTON FIXED */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 text-white/50 hover:text-white transition"
+              className={`
+                absolute 
+                ${isMobile ? "top-4 right-4" : "top-6 right-6"}
+                z-50
+                w-10 h-10
+                flex items-center justify-center
+                rounded-full
+                bg-white/5 hover:bg-white/10
+                text-white/60 hover:text-white
+                transition
+                active:scale-95
+                cursor-pointer
+              `}
+              aria-label="Close modal"
             >
-              <X size={22} />
+              <X size={20} />
             </button>
 
             <div className={`relative z-10 ${isMobile ? "space-y-6" : "space-y-10"}`}>
