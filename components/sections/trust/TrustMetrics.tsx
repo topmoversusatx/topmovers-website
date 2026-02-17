@@ -8,20 +8,20 @@ export default function TrustMetrics() {
   const { ref, inView } = useInView({ triggerOnce: true })
 
   return (
-    <div ref={ref} className="text-center space-y-20">
+    <div ref={ref} className="text-center space-y-14 md:space-y-20">
 
       {/* Header */}
       <div>
-        <h2 className="text-4xl md:text-5xl font-semibold mb-6">
+        <h2 className="text-3xl md:text-5xl font-semibold mb-4 md:mb-6">
           Trusted Across Texas.
         </h2>
-        <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
+        <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
           Hundreds of families and businesses trust Top Movers with what matters most.
         </p>
       </div>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
 
         <Metric value={547} suffix="+" label="Successful Moves" inView={inView} />
 
@@ -44,14 +44,16 @@ function Metric({ value, suffix = "", label, inView, decimals = 0 }: any) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="space-y-4"
+      className="space-y-3 md:space-y-4"
     >
       {/* Number */}
-      <div className="
-        text-6xl md:text-7xl font-extrabold
-        text-[#facc15]
-        drop-shadow-[0_0_20px_rgba(250,204,21,0.25)]
-      ">
+      <div
+        className="
+          text-4xl md:text-7xl font-extrabold
+          text-[#facc15]
+          drop-shadow-[0_0_20px_rgba(250,204,21,0.25)]
+        "
+      >
         {inView && (
           <CountUp
             end={value}
@@ -63,7 +65,7 @@ function Metric({ value, suffix = "", label, inView, decimals = 0 }: any) {
       </div>
 
       {/* Label */}
-      <p className="text-neutral-500 text-sm tracking-[0.2em] uppercase">
+      <p className="text-neutral-500 text-[11px] md:text-sm tracking-[0.15em] md:tracking-[0.2em] uppercase">
         {label}
       </p>
     </motion.div>

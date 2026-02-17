@@ -27,7 +27,7 @@ const items = [
 
 export default function HeavySpecialtyItems() {
   return (
-    <section className="relative py-24 md:py-32 text-white overflow-hidden">
+    <section className="relative py-20 md:py-32 text-white overflow-hidden">
 
       {/* DESKTOP BACKGROUND */}
       <div
@@ -78,13 +78,13 @@ export default function HeavySpecialtyItems() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="mt-4 md:mt-6 text-base md:text-xl text-neutral-200 max-w-2xl mx-auto"
+          className="mt-4 md:mt-6 text-sm md:text-xl text-neutral-200 max-w-2xl mx-auto"
         >
           Moving oversized and high-value items requires more than strength — it requires expertise, precision, and the right equipment.
         </motion.p>
 
         {/* Grid */}
-        <div className="mt-12 md:mt-20 grid md:grid-cols-2 gap-6 md:gap-10 text-left">
+        <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-10 text-left">
           {items.map((item, index) => (
             <motion.div
               key={index}
@@ -92,12 +92,12 @@ export default function HeavySpecialtyItems() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: index * 0.15 }}
               viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md p-5 md:p-8 rounded-xl md:rounded-2xl border border-white/20 hover:border-white/40 transition-all duration-300"
+              className="bg-white/10 backdrop-blur-md p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20 hover:border-white/40 transition-all duration-300"
             >
-              <h3 className="text-lg md:text-2xl font-semibold mb-2 md:mb-4">
+              <h3 className="text-base md:text-2xl font-semibold mb-2 md:mb-4">
                 {item.title}
               </h3>
-              <p className="text-sm md:text-base text-neutral-200 leading-relaxed">
+              <p className="text-xs md:text-base text-neutral-200 leading-relaxed">
                 {item.description}
               </p>
             </motion.div>

@@ -7,7 +7,7 @@ import TrustCTA from "./TrustCTA"
 
 export default function TrustSection() {
   return (
-    <section className="relative text-white overflow-hidden min-h-screen md:min-h-full py-12 md:py-32">
+    <section className="relative text-white overflow-hidden py-16 md:py-32">
 
       {/* ============================= */}
       {/* Background Image */}
@@ -29,19 +29,22 @@ export default function TrustSection() {
             block md:hidden
             w-full h-full
             object-cover
-            object-[center_20%]
-            scale-110
+            object-[center_25%]
           "
         />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b 
-          from-black/85 
-          via-black/85 
-          to-black/90 
-          md:from-black/70 
-          md:via-black/75 
-          md:to-black/85" 
+        {/* Overlay (lighter on mobile, unchanged on desktop) */}
+        <div
+          className="
+            absolute inset-0 
+            bg-gradient-to-b 
+            from-black/75 
+            via-black/80 
+            to-black/90 
+            md:from-black/70 
+            md:via-black/75 
+            md:to-black/85
+          "
         />
 
         {/* Depth blur */}
@@ -51,7 +54,7 @@ export default function TrustSection() {
       {/* ============================= */}
       {/* Content */}
       {/* ============================= */}
-      <div className="relative max-w-6xl mx-auto px-6 space-y-14 md:space-y-32">
+      <div className="relative max-w-6xl mx-auto px-6 space-y-16 md:space-y-32">
 
         <TrustMetrics />
         <TrustEmotional />
