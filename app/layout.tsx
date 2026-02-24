@@ -22,9 +22,85 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Top Movers | Austin Moving Company",
+  metadataBase: new URL("https://topmoversusatx.com"),
+
+  title: {
+    default:
+      "Top Movers USA TX | Professional Moving Company in Austin, Texas",
+    template: "%s | Top Movers USA TX",
+  },
+
   description:
-    "Top Movers is a professional moving company serving Austin, TX and surrounding areas. Fast, insured, and reliable residential and commercial moving services.",
+    "Top Movers USA TX is a professional moving company serving Austin, Round Rock, Cedar Park, Leander, Pflugerville, Georgetown and surrounding Texas areas. Residential and commercial moving services with transparent hourly rates and apartment flat-rate specials.",
+
+  keywords: [
+    "Austin moving company",
+    "Movers in Austin TX",
+    "Round Rock movers",
+    "Cedar Park movers",
+    "Leander moving company",
+    "Pflugerville movers",
+    "Georgetown TX movers",
+    "Lakeway movers",
+    "Bee Cave moving services",
+    "Kyle TX movers",
+    "Buda moving company",
+    "Apartment movers Austin",
+    "Residential moving Austin Texas",
+    "Commercial moving Austin TX",
+    "Packing and unpacking services Austin",
+    "Top Movers USA TX"
+  ],
+
+  authors: [{ name: "Top Movers USA TX" }],
+  creator: "Top Movers USA TX",
+  publisher: "Top Movers USA TX",
+
+  openGraph: {
+    title:
+      "Top Movers USA TX | Trusted Moving Company in Austin, Texas",
+    description:
+      "Professional movers serving Austin and surrounding cities including Round Rock, Cedar Park, Leander and Georgetown. Reliable, insured and structured moving services.",
+    url: "https://topmoversusatx.com",
+    siteName: "Top Movers USA TX",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Top Movers USA TX Moving Company",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Top Movers USA TX | Austin & Surrounding Areas",
+    description:
+      "Reliable professional movers in Austin, Round Rock, Cedar Park and surrounding Texas cities.",
+    images: ["/og-image.jpg"],
+  },
+
+  alternates: {
+    canonical: "https://topmoversusatx.com",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  category: "Moving Services",
 }
 
 export default function RootLayout({
@@ -45,8 +121,41 @@ export default function RootLayout({
           {/* Page Content */}
           {children}
 
-          {/* Floating Contact Buttons (GLOBAL + FIXED) */}
+          {/* Floating Contact Buttons */}
           <FloatingContactButtons />
+
+          {/* 🔥 Structured Data - Local SEO */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "MovingCompany",
+                name: "Top Movers USA TX",
+                url: "https://topmoversusatx.com",
+                logo: "https://topmoversusatx.com/og-image.jpg",
+                areaServed: [
+                  "Austin TX",
+                  "Round Rock TX",
+                  "Cedar Park TX",
+                  "Leander TX",
+                  "Pflugerville TX",
+                  "Georgetown TX",
+                  "Lakeway TX",
+                  "Bee Cave TX",
+                  "Kyle TX",
+                  "Buda TX"
+                ],
+                serviceType: [
+                  "Residential Moving",
+                  "Commercial Moving",
+                  "Apartment Moving",
+                  "Packing Services",
+                  "Unpacking Services"
+                ]
+              }),
+            }}
+          />
 
         </QuoteModalProvider>
       </body>
