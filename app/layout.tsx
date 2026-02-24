@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title:
       "Top Movers USA TX | Trusted Moving Company in Austin, Texas",
     description:
-      "Professional movers serving Austin and surrounding cities including Round Rock, Cedar Park, Leander and Georgetown. Reliable, insured and structured moving services.",
+  "Professional movers based in Austin, Texas offering local, statewide and nationwide long-distance moving services across the United States.",
     url: "https://topmoversusatx.com",
     siteName: "Top Movers USA TX",
     images: [
