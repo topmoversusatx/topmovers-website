@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
+import { Menu, Instagram, Facebook, MessageCircle } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -77,8 +77,40 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center">
+          {/* Desktop Right Section */}
+          <div className="hidden md:flex items-center gap-8">
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-5 text-white/70">
+              <a
+                href="https://wa.me/17372443247?text=Hi%20I%27d%20like%20a%20quote%20for%20my%20move%20in%20Austin."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-300 hover:text-primary hover:scale-110"
+              >
+                <MessageCircle className="h-5 w-5" />
+              </a>
+
+              <a
+                href="https://www.instagram.com/topmovers.usatx/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-300 hover:text-primary hover:scale-110"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+
+              <a
+                href="https://www.facebook.com/profile.php?id=61587630183676"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-300 hover:text-primary hover:scale-110"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+            </div>
+
+            {/* CTA */}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
               <Button
                 size="lg"
@@ -95,6 +127,7 @@ export default function Header() {
                 Get a Quote
               </Button>
             </motion.div>
+
           </div>
 
           {/* ================= MOBILE MENU ================= */}
@@ -119,10 +152,10 @@ export default function Header() {
                   pt-16
                 "
               >
-                {/* Premium radial depth */}
+                {/* Radial depth */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,215,0,0.05),transparent_60%)] pointer-events-none" />
 
-                {/* Logo centered */}
+                {/* Logo */}
                 <div className="mb-16">
                   <Link href="#home">
                     <Image
@@ -142,11 +175,7 @@ export default function Header() {
                     <SheetClose asChild key={item.href}>
                       <Link
                         href={item.href}
-                        className="
-                          hover:text-primary
-                          transition-colors
-                          duration-300
-                        "
+                        className="hover:text-primary transition-colors duration-300"
                       >
                         {item.label}
                       </Link>
@@ -156,7 +185,40 @@ export default function Header() {
                   {/* Divider */}
                   <div className="w-20 h-[1px] bg-white/10 my-4" />
 
-                  {/* Premium CTA */}
+                  {/* Social Icons */}
+                  <div className="flex items-center gap-8 text-white/70">
+                    <a
+                      href="https://wa.me/17372443247?text=Hi%20I%27d%20like%20a%20quote%20for%20my%20move%20in%20Austin."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-all duration-300 hover:text-primary hover:scale-110"
+                    >
+                      <MessageCircle className="h-6 w-6" />
+                    </a>
+
+                    <a
+                      href="https://www.instagram.com/topmovers.usatx/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-all duration-300 hover:text-primary hover:scale-110"
+                    >
+                      <Instagram className="h-6 w-6" />
+                    </a>
+
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61587630183676"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-all duration-300 hover:text-primary hover:scale-110"
+                    >
+                      <Facebook className="h-6 w-6" />
+                    </a>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="w-20 h-[1px] bg-white/10 my-6" />
+
+                  {/* CTA */}
                   <SheetClose asChild>
                     <motion.div
                       whileHover={{ scale: 1.05 }}

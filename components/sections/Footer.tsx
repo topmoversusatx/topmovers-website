@@ -74,7 +74,7 @@ export default function Footer() {
 
             <div className="flex flex-col gap-3 text-neutral-300 text-sm">
               <span>Austin, Texas</span>
-              <span>(512) 555-0123</span>
+              <span>(737) 244-3247</span>
               <span>info@topmoversusatx.com</span>
               <span className="text-neutral-500 text-xs mt-2">
                 Serving Austin Metro · Across Texas · Nationwide

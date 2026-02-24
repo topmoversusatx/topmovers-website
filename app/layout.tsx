@@ -1,5 +1,5 @@
 /*************************
-top-mover/app/layout.tsx
+top-movers/app/layout.tsx
 @Serendipity Digital
 **************************/
 
@@ -8,6 +8,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 
 import Header from "@/components/layout/header"
+import FloatingContactButtons from "@/components/ui/FloatingContactButtons"
 import { QuoteModalProvider } from "@/context/QuoteModalContext"
 
 const geistSans = Geist({
@@ -37,8 +38,16 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}
       >
         <QuoteModalProvider>
+
+          {/* Header Global */}
           <Header />
+
+          {/* Page Content */}
           {children}
+
+          {/* Floating Contact Buttons (GLOBAL + FIXED) */}
+          <FloatingContactButtons />
+
         </QuoteModalProvider>
       </body>
     </html>
