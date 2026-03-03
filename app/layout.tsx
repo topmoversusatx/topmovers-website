@@ -41,26 +41,28 @@ export const metadata: Metadata = {
     "Leander moving company",
     "Pflugerville movers",
     "Georgetown TX movers",
-    "Lakeway movers",
-    "Bee Cave moving services",
-    "Kyle TX movers",
-    "Buda moving company",
     "Apartment movers Austin",
     "Residential moving Austin Texas",
     "Commercial moving Austin TX",
-    "Packing and unpacking services Austin",
+    "Packing services Austin",
     "Top Movers USA TX"
   ],
 
-  authors: [{ name: "Top Movers USA TX" }],
-  creator: "Top Movers USA TX",
-  publisher: "Top Movers USA TX",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" }
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180" }
+    ],
+  },
 
   openGraph: {
     title:
       "Top Movers USA TX | Trusted Moving Company in Austin, Texas",
     description:
-  "Professional movers based in Austin, Texas offering local, statewide and nationwide long-distance moving services across the United States.",
+      "Professional movers based in Austin, Texas offering local, statewide and nationwide long-distance moving services.",
     url: "https://topmoversusatx.com",
     siteName: "Top Movers USA TX",
     images: [
@@ -115,25 +117,32 @@ export default function RootLayout({
       >
         <QuoteModalProvider>
 
-          {/* Header Global */}
           <Header />
 
-          {/* Page Content */}
           {children}
 
-          {/* Floating Contact Buttons */}
           <FloatingContactButtons />
 
-          {/* 🔥 Structured Data - Local SEO */}
+          {/* 🔥 Enhanced Structured Data */}
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "MovingCompany",
+                "@id": "https://topmoversusatx.com/#movingcompany",
                 name: "Top Movers USA TX",
                 url: "https://topmoversusatx.com",
-                logo: "https://topmoversusatx.com/og-image.jpg",
+                logo: "https://topmoversusatx.com/icon.png",
+                image: "https://topmoversusatx.com/og-image.jpg",
+                description:
+                  "Licensed and insured moving company based in Austin, Texas providing residential and commercial moving services across Central Texas.",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Austin",
+                  addressRegion: "TX",
+                  addressCountry: "US"
+                },
                 areaServed: [
                   "Austin TX",
                   "Round Rock TX",
@@ -152,6 +161,11 @@ export default function RootLayout({
                   "Apartment Moving",
                   "Packing Services",
                   "Unpacking Services"
+                ],
+                priceRange: "$$",
+                sameAs: [
+                  "https://www.facebook.com/",
+                  "https://www.instagram.com/"
                 ]
               }),
             }}

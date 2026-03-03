@@ -1,3 +1,8 @@
+/*************************
+top-movers/components/ui/FloatingContactButtons.tsx
+@Serendipity Digital
+**************************/
+
 "use client"
 
 import { motion } from "framer-motion"
@@ -5,9 +10,7 @@ import { MessageCircle, Phone } from "lucide-react"
 
 export default function FloatingContactButtons() {
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-4 pointer-events-auto">
-      {/* Debug dot (si ves esto, el componente está montando) */}
-      <div className="absolute -top-2 -left-2 h-2 w-2 rounded-full bg-red-500" />
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
 
       {/* WhatsApp */}
       <motion.a
@@ -22,8 +25,8 @@ export default function FloatingContactButtons() {
           rounded-full
           bg-[#25D366]
           shadow-[0_10px_30px_rgba(37,211,102,0.35)]
+          transition-all duration-300
         "
-        aria-label="WhatsApp"
       >
         <MessageCircle className="w-6 h-6 text-white" />
       </motion.a>
@@ -40,11 +43,12 @@ export default function FloatingContactButtons() {
           bg-black
           border border-white/20
           shadow-[0_10px_30px_rgba(0,0,0,0.4)]
+          transition-all duration-300
         "
-        aria-label="Call Now"
       >
         <Phone className="w-6 h-6 text-white" />
       </motion.a>
+
     </div>
   )
 }
