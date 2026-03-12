@@ -1,6 +1,6 @@
 /*************************
 top-movers/app/layout.tsx
-@Serendipity Digital
+@Serendipity Digital Digital
 SEO Optimized Version
 **************************/
 
