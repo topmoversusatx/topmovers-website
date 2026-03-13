@@ -16,7 +16,7 @@ export default function Home() {
       </section>
 
       <section id="services">
-        <Services openModal={() => {}} />
+        <Services />
       </section>
 
       <section id="pricing">
