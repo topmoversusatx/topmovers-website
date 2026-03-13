@@ -1,28 +1,48 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { useQuoteModal } from "@/context/QuoteModalContext"
+import { useRef } from "react"
 
 export default function ContactSection() {
   const { openModal } = useQuoteModal()
+  const sectionRef = useRef<HTMLElement>(null)
+  const isInView = useInView(sectionRef, { once: true, margin: "0px 0px -100px 0px" })
 
   return (
     <section
       id="contact"
+      ref={sectionRef}
       className="scroll-mt-24 relative text-white overflow-hidden"
     >
 
       {/* ================= VIDEO BACKGROUND ================= */}
       <div className="absolute inset-0 -z-10">
-        <video
-          className="w-full h-full object-cover"
-          src="/video.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+
+        {/* Poster image shown before video loads (create a /video-poster.jpg from first frame) */}
+        {!isInView && (
+          <div
+            className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('/video-poster.jpg')" }}
+          />
+        )}
+
+        {/* Video only renders in DOM when section is near viewport */}
+        {isInView && (
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
+            poster="/video-poster.jpg"
+          >
+            <source src="/video.webm" type="video/webm" />
+            <source src="/video.mp4" type="video/mp4" />
+          </video>
+        )}
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/75 to-black/95" />
 
@@ -52,7 +72,7 @@ export default function ContactSection() {
             </h2>
 
             <p className="mt-8 text-base md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Tell us where you're going. We’ll handle the rest with precision,
+              Tell us where you're going. We'll handle the rest with precision,
               protection, and punctuality.
             </p>
 
